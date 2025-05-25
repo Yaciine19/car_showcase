@@ -15,21 +15,24 @@ export default function Hero() {
         </h1>
 
         <p className="hero__subtitle">
-          Streamline your car rental experience with our platform. Search, compare, and book your ideal vehicle in just a few clicks.
+          Streamline your car rental experience with our platform. Search,
+          compare, and book your ideal vehicle in just a few clicks.
         </p>
 
-        <CustomButton title="Explore Cars"
-        containerStyles="bg-primary-blue text-white rounded-full mt-10"
-        handleClick={handleScroll}/>
+        <CustomButton
+          title="Explore Cars"
+          containerStyles="bg-primary-blue text-white rounded-full mt-10"
+          handleClick={handleScroll}
+        />
       </div>
 
       <div className="hero__image-container">
         <div className="hero__image">
           <Image src={"/hero.png"} alt="hero" fill className="object-contain" />
-
-          <div className="hero__image-overlay"></div>
         </div>
+
+        <div className="hero__image-overlay" />
       </div>
     </div>
-  )
+  );
 }
