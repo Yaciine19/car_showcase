@@ -1,4 +1,4 @@
-import { CarProps } from "@/types";
+import { CarProps, FilterProps } from "@/types";
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
   const basePricePerDay = 50; // Base rental price per day in dollars
@@ -15,14 +15,31 @@ export const calculateCarRent = (city_mpg: number, year: number) => {
   return rentalRatePerDay.toFixed(0);
 };
 
-export async function fetchCars() {
+export const generateCarImageUrl = (car: CarProps, angle?: string) => {
+  const url = new URL("https://cdn.imagin.studio/getimage");
+
+  const { make, year, model } = car;
+
+  url.searchParams.append("customer", "hrjavascript-mastery");
+  url.searchParams.append("make", make);
+  url.searchParams.append("modelFamily", model.split(" ")[0]);
+  url.searchParams.append("zoomType", "fullscreen");
+  url.searchParams.append("modelYear", `${year}`);
+  url.searchParams.append("angle", `${angle}`);
+
+  return `${url}`;
+};
+
+export async function fetchCars(filters: FilterProps) {
+  const { manufacturer, fuel, model } = filters;
+
   const headers = {
     "x-rapidapi-key": "dce48072f6msh7861b07e43e6ef4p1a93fdjsn9fb404bd2d04",
     "x-rapidapi-host": "cars-by-api-ninjas.p.rapidapi.com",
   };
 
   const response = await fetch(
-    "https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=carrera",
+    `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&model=${model}&fuel_type=${fuel}`,
     {
       headers: headers,
     }
@@ -31,21 +48,4 @@ export async function fetchCars() {
   const result = await response.json();
 
   return result;
-}
-
-export const generateCarImageUrl = (car: CarProps, angle?: string) => {
-
-  const url = new URL("https://cdn.imagin.studio/getimage");
-
-  const {make, year, model} = car;
-
-  url.searchParams.append("customer", "hrjavascript-mastery");
-  url.searchParams.append("make", make);
-  url.searchParams.append("modelFamily", model.split(' ')[0]);
-  url.searchParams.append("zoomType", "fullscreen");
-  url.searchParams.append("modelYear", `${year}`);
-  url.searchParams.append("angle", `${angle}`);
-
-  return `${url}`
-
 }
