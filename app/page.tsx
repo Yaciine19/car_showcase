@@ -45,7 +45,7 @@ export default async function Home({
               ))}
             </div>
 
-            <ShowMore />
+            <ShowMore pageNumber={(10) / 10} isNext={10 > allCars.length} />
           </section>
         ) : (
           <div className="home__error-container">

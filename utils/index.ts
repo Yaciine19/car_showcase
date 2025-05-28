@@ -49,7 +49,7 @@ export async function fetchCars(filters: FilterProps) {
   };
 
   const response = await fetch(
-    `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&model=${model}&fuel_type=${fuel}`,
+    `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&model=${model || "corolla"}&fuel_type=${fuel}`,
     {
       headers: headers,
     }
